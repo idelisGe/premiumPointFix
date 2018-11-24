@@ -20,12 +20,12 @@ class AccountInvoice(models.Model):
         cmd += "\nj%s"%(self.partner_id.street,) if self.partner_id.street else ''
         for line in self.invoice_line_ids:
             if line.invoice_line_tax_ids:
-                tmp = '\n!{:011.2f}{:09.3f}{}'.format(line.price_unit, line.quantity, line.name[:117])
+                tmp = '\n!{:011.2f}{:09.3f}{}'.format(line.price_unit, line.quantity, line.name.replace('\n','')[:117])
                 cmd += tmp.replace('.','')
             else:
-                tmp = '\n {:011.2f}{:09.3f}{}'.format(line.price_unit, line.quantity, line.name[:117])
+                tmp = '\n {:011.2f}{:09.3f}{}'.format(line.price_unit, line.quantity, line.name.replace('\n','')[:117])
                 cmd += tmp.replace('.','')
-        cmd += "\n3101"
+        cmd += "\n3\n101"
         cmd = b64encode(cmd.encode('utf-8'))
         self.fiscal_printer_status = 'sent'
         return {

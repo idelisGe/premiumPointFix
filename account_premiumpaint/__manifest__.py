@@ -7,7 +7,7 @@
     'author': "SimpleIT",
     'website': "http://simpleit.com",
 
-    'category': 'account',
+    'category': 'account_invoicing',
     'version': '11.0.1',
 
     'depends': [
