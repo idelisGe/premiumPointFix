@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!-- Update account invoice !-->
+        <record id="account_invoice_form" model="ir.ui.view">
+            <field name="name">Account Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group//group[last()]" position="inside">
+                    <label for="fiscal_printer_status" states="open,paid"/>
+                    <div class="o_row">
+                        <field name="fiscal_printer_status" states="open,paid"/>
+                        <button name="send_invoice_proxy" string="Enviar Impresora Fiscal" class="oe_link" type="object" groups="account.group_account_invoice" attrs="{'invisible':[('fiscal_printer_status', 'in', ['printed']),('state', 'in', ['draft','cancel'])]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>
