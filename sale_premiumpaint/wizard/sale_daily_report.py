@@ -39,10 +39,13 @@ class SaleDailyReport(models.AbstractModel):
 
     @api.multi
     def get_report_values(self, docids, data=None):
+        print(data)
         data = dict(data or {})
-        if not data.get('date', False):
-            data['date'] = fields.Date.context_today(self)
-        domain = [('confirmation_date','>=', data['date'] + " 00:00:00"),('confirmation_date','<=', data['date'] + " 23:59:59"),('state','in',('sale','done'))]
+        wiz_date = data.get('form', {}).get('date',False)
+        
+        if not wiz_date:
+            wiz_date = fields.Date.context_today(self)
+        domain = [('confirmation_date','>=', wiz_date + " 00:00:00"),('confirmation_date','<=', wiz_date + " 23:59:59"),('state','in',('sale','done'))]
         docs = self.env['sale.order'].browse(docids)
         sale_data = self.env['sale.order'].read_group(domain,fields=['warehouse_id','amount_total'], groupby=['warehouse_id'])
         for sd in sale_data:
@@ -56,6 +59,6 @@ class SaleDailyReport(models.AbstractModel):
             'doc_model': 'sale.order',
             'docs': docs,
             'data': sale_data,
-            'date_at': data['date'],
+            'date_at': wiz_date,
         }
         return data
