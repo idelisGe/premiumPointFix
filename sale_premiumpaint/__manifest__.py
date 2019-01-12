@@ -17,6 +17,7 @@
 
     'data': [
         'views/sales_team_view.xml',
+        'wizard/sale_daily_report.xml',
     ],
 
     'installable': True,

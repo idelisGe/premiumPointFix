@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
     def _default_warehouse_id(self):
         team = self.env['crm.team']._get_default_team_id()
         warehouse_ids = super(SaleOrder, self)._default_warehouse_id()
-        return team.warehouse_id if team else warehouse_ids
+        return team.warehouse_id if (team and team.warehouse_id) else warehouse_ids
 
     warehouse_id = fields.Many2one(
         'stock.warehouse', string='Warehouse',
