@@ -39,7 +39,6 @@ class SaleDailyReport(models.AbstractModel):
 
     @api.multi
     def get_report_values(self, docids, data=None):
-        print(data)
         data = dict(data or {})
         wiz_date = data.get('form', {}).get('date',False)
         
