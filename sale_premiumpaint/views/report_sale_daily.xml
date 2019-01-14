@@ -58,9 +58,9 @@
               </t>
               <tr>
                 <td><strong>Total :</strong></td>
-                <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_contado" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_credito" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
               </tr>
             </tbody>
           </table>
