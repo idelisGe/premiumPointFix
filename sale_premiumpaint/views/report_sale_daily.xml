@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_saledaily">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout">
+        <div class="page">
+          <h2 class="text-center">Reporte Diario de Ventas</h2>
+
+          <div class="row mt32 mb32">
+            <div class="col-xs-3">
+              <strong>Fecha Impresion</strong>:<br/>
+              <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+            </div>
+            <div class="col-xs-3">
+              <strong>Reporte del dia</strong>:<br/>
+              <span t-esc="date_at"/>
+            </div>
+          </div>
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>
+                  <strong>Tienda</strong>
+                </th>
+                <th>
+                  <strong>Contado</strong>
+                </th>
+                <th>
+                  <strong>Credito</strong>
+                </th>
+                <th class="text-right">
+                  <strong>Ventas</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-set="sum_sales_total" t-value="0"/>
+              <t t-set="sum_sales_credito" t-value="0"/>
+              <t t-set="sum_sales_contado" t-value="0"/>
+              <t t-foreach="data" t-as="sale">
+                <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_total']"/>
+                <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
+                <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
+                <tr>
+                  <td>
+                    <span t-esc="sale['warehouse_id'][1]"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="sale['Contado']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="sale['Credito']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="sale['amount_total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Total :</strong></td>
+                  <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                  <td class="text-right"><span t-esc="sum_sales_contado" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                  <td class="text-right"><span t-esc="sum_sales_credito" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                </tr>
+              </t>
+            </tbody>
+          </table>
+        </div>
+      </t>
+    </t>
+  </template>
+  <report
+            id="action_report_saledaily"
+            model="sale.daily.report"
+            string="Reporte diario Ventas"
+            report_type="qweb-pdf"
+            name="sale_premiumpaint.report_saledaily"
+            file="sale_premiumpaint.report_saledaily"
+            />
+</odoo>
+
