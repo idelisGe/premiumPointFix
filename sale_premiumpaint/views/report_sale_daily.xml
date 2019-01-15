@@ -75,7 +75,7 @@
                     <span t-esc="this_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                    <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/>
                   </td>
                 </tr>
               </t>
@@ -88,7 +88,7 @@
                 <td class="text-right"><span t-esc="sum_sales_credito" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_costo" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="all_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
-                <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/></td>
               </tr>
             </tbody>
           </table>
@@ -154,7 +154,7 @@
                     <span t-esc="this_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                    <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/>
                   </td>
                 </tr>
               </t>
@@ -167,7 +167,7 @@
                 <td class="text-right"><span t-esc="sum_sales_credito" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_costo" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="all_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
-                <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/></td>
               </tr>
             </tbody>
           </table>
