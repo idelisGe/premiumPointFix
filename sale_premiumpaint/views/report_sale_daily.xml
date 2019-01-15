@@ -22,28 +22,45 @@
                 <th>
                   <strong>Tienda</strong>
                 </th>
-                <th>
+                <th class="text-right">
+                  <strong>Ventas</strong>
+                </th>
+                <th class="text-right">
                   <strong>Contado</strong>
                 </th>
-                <th>
+                <th class="text-right">
                   <strong>Credito</strong>
                 </th>
                 <th class="text-right">
-                  <strong>Ventas</strong>
+                  <strong>Costo</strong>
+                </th>
+                <th class="text-right">
+                  <strong>Utilidad</strong>
+                </th>
+                <th class="text-right">
+                  <strong>(%)Margen</strong>
                 </th>
               </tr>
             </thead>
             <tbody>
               <t t-set="sum_sales_total" t-value="0"/>
-              <t t-set="sum_sales_credito" t-value="0"/>
               <t t-set="sum_sales_contado" t-value="0"/>
+              <t t-set="sum_sales_credito" t-value="0"/>
+              <t t-set="sum_sales_costo" t-value="0"/>
               <t t-foreach="data" t-as="sale">
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_total']"/>
                 <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
+                <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
+                
+                <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
+                <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
                 <tr>
                   <td>
                     <span t-esc="sale['warehouse_id'][1]"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="sale['amount_total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
                     <span t-esc="sale['Contado']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
@@ -52,15 +69,26 @@
                     <span t-esc="sale['Credito']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="sale['amount_total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    <span t-esc="sale['amount_calculate_cost']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="this_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/>
                   </td>
                 </tr>
               </t>
+              <t t-set="all_sale_utilidad" t-value="sum_sales_total - sum_sales_costo"/>
+                <t t-set="all_sale_margen" t-value="(all_sale_utilidad / sum_sales_total) * 100.0 if sum_sales_total else 0.0"/>
               <tr>
                 <td><strong>Total :</strong></td>
+                <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_contado" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_credito" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
-                <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="sum_sales_costo" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="all_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
               </tr>
             </tbody>
           </table>

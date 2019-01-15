@@ -7,6 +7,19 @@ from odoo.addons import decimal_precision as dp
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    @api.depends('order_line.price_total')
+    def _compute_calculate_cost(self):
+        """
+        Compute the total cost of the SO.
+        """
+        for order in self:
+            amount_calculate_cost = 0.0
+            for line in order.order_line:
+                amount_calculate_cost += (line.product_id.standard_price * line.product_uom_qty)
+            order.update({
+                'amount_calculate_cost': amount_calculate_cost
+            })
+
     @api.depends('payment_term_id')
     def _compute_payment_type(self):
         for sale in self:
@@ -25,6 +38,7 @@ class SaleOrder(models.Model):
         'stock.warehouse', string='Warehouse',
         required=True, readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
         default=_default_warehouse_id)
+    amount_calculate_cost = fields.Monetary(string='Costo', store=True, readonly=True, compute='_compute_calculate_cost')
 
 
 class CrmTeam(models.Model):

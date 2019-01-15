@@ -17,7 +17,7 @@ class ReportSaleDaily(models.AbstractModel):
             wiz_date = fields.Date.context_today(self)
         domain = [('confirmation_date','>=', wiz_date + " 00:00:00"),('confirmation_date','<=', wiz_date + " 23:59:59"),('state','in',('sale','done'))]
         docs = self.env['sale.order'].browse(docids)
-        sale_data = self.env['sale.order'].read_group(domain,fields=['warehouse_id','amount_total'], groupby=['warehouse_id'])
+        sale_data = self.env['sale.order'].read_group(domain,fields=['warehouse_id','amount_calculate_cost','amount_total'], groupby=['warehouse_id'])
         for sd in sale_data:
             sd['Contado'] = sd['Credito'] =0.0
             if '__domain' in sd:
