@@ -227,7 +227,7 @@
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
-                    <span t-field="sale.confirmation_date"/>
+                    <span t-esc="str(sale.confirmation_date).split()[0]"/>
                   </td>
                   <td>
                     <span t-field="sale.name"/>
@@ -254,8 +254,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td><strong>Total Contado :</strong></td>
+                <td class="text-right" colspan="2"><strong>Total Contado :</strong></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
               </tr>
             </tbody>
@@ -309,7 +308,7 @@
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
-                    <span t-field="sale.confirmation_date"/>
+                    <span t-esc="str(sale.confirmation_date).split()[0]"/>
                   </td>
                   <td>
                     <span t-field="sale.name"/>
@@ -336,8 +335,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td><strong>Total Credito :</strong></td>
+                <td class="text-right" colspan="2"><strong>Total Credito :</strong></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
               </tr>
             </tbody>
