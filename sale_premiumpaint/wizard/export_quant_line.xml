@@ -27,13 +27,13 @@
         </record>
 
         <record id="action_wizard_quant_valuation_export" model="ir.actions.act_window">
-            <field name="name">Valoración de Inventario(excel)</field>
+            <field name="name">Valoración de Inventario</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">quant.valuation.export</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-        <menuitem action="action_wizard_quant_valuation_export" id="menu_wizard_quant_valuation_export" sequence="50" parent="stock.menu_warehouse_report"/>
+        <menuitem action="action_wizard_quant_valuation_export" id="stock_account.menu_valuation" sequence="110" parent="stock.menu_warehouse_report"/>
     </data>
 </odoo>
