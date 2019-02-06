@@ -3,16 +3,24 @@ from base64 import b64decode, b64encode
 from odoo import api, fields, models
 
 
-class AccountMove(models.Model):
-    _inherit = "account.move"
-    @api.multi
-    def assert_balanced(self):
-        return True
-
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    payment_type = fields.Char('Es Credito')
+    @api.depends('origin')
+    def _compute_related_sale_order(self):
+        for invoice in self:
+            origin = invoice.origin and invoice.origin.split(',')
+            if origin and len(origin):
+                sale_order = self.env['sale.order'].search([('name','=',origin[0])], limit=1)
+                invoice.payment_type = sale_order.payment_type if sale_order else False
+                invoice.warehouse_id = sale_order.warehouse_id if sale_order else False
+                invoice.amount_calculate_cost = sale_order.amount_calculate_cost if sale_order else 0.0
+
+    payment_type = fields.Char(
+        'Es Credito', compute='_compute_related_sale_order', store=True)
+    warehouse_id = fields.Many2one(
+        'stock.warehouse', string='Warehouse', compute='_compute_related_sale_order', store=True)
+    amount_calculate_cost = fields.Monetary(string='Costo', compute='_compute_related_sale_order', store=True)
     fiscal_printer_status = fields.Selection([
             ('unsent','Sin enviar'),
             ('sent','Enviada'),
