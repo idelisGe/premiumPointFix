@@ -119,6 +119,12 @@
                 <th class="text-right">
                   <strong>(%)Margen</strong>
                 </th>
+                <th class="text-right">
+                  <strong>Meta mensual</strong>
+                </th>
+                <th class="text-right">
+                  <strong>(%)Meta</strong>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -134,6 +140,7 @@
                 
                 <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
                 <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
+                <t t-set="this_sale_target_percent" t-value="(sale['amount_total'] / sale['invoiced_target']) * 100.0 if sale['invoiced_target'] else 0.0"/>
                 <tr>
                   <td>
                     <span t-esc="sale['warehouse_id'][1]"/>
@@ -155,6 +162,12 @@
                   </td>
                   <td class="text-right">
                     <span t-esc="this_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="sale['invoiced_target']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                  </td>
+                  <td class="text-right">
+                    <span t-esc="this_sale_target_percent" t-options="{'widget': 'float', 'precision': 2}"/>
                   </td>
                 </tr>
               </t>

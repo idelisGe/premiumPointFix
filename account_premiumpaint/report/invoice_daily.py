@@ -21,6 +21,8 @@ class ReportInvoiceDaily(models.AbstractModel):
                 sale_payment_type = self.env['account.invoice'].read_group(sd['__domain'],fields=['payment_type','amount_total'], groupby=['payment_type'])
                 for spt in sale_payment_type:
                     sd[spt['payment_type']] = spt['amount_total']
+            sale_team = self.env['crm.team'].search([('warehouse_id','=',sd['warehouse_id'][0])], limit=1)
+            sd['invoiced_target'] = sale_team.invoiced_target if sale_team else 0.0
         return invoice_data
 
     @api.multi
