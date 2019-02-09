@@ -132,11 +132,13 @@
               <t t-set="sum_sales_contado" t-value="0"/>
               <t t-set="sum_sales_credito" t-value="0"/>
               <t t-set="sum_sales_costo" t-value="0"/>
+              <t t-set="sum_invoiced_target" t-value="0"/>
               <t t-foreach="get_report_consolidate(date_at)" t-as="sale">
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_total']"/>
                 <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
                 <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
+                <t t-set="sum_invoiced_target" t-value="sum_invoiced_target + sale['invoiced_target']"/>
                 
                 <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
                 <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
@@ -172,7 +174,8 @@
                 </tr>
               </t>
               <t t-set="all_sale_utilidad" t-value="sum_sales_total - sum_sales_costo"/>
-                <t t-set="all_sale_margen" t-value="(all_sale_utilidad / sum_sales_total) * 100.0 if sum_sales_total else 0.0"/>
+              <t t-set="all_sale_margen" t-value="(all_sale_utilidad / sum_sales_total) * 100.0 if sum_sales_total else 0.0"/>
+              <t t-set="all_invoiced_target_percent" t-value="(sum_sales_total / sum_invoiced_target) * 100.0 if sum_invoiced_target else 0.0"/>
               <tr>
                 <td><strong>Total :</strong></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
@@ -181,6 +184,8 @@
                 <td class="text-right"><span t-esc="sum_sales_costo" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="all_sale_utilidad" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="all_sale_margen" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                <td class="text-right"><span t-esc="sum_invoiced_target" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="all_invoiced_target_percent" t-options="{'widget': 'float', 'precision': 2}"/></td>
               </tr>
             </tbody>
           </table>
