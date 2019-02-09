@@ -13,7 +13,7 @@ class ReportInvoiceDaily(models.AbstractModel):
 
         if not date_at:
             date_at = fields.Date.context_today(self)
-        domain = [('date_invoice','>=', date_at),('date_invoice','<=', date_at),('type','=', 'out_invoice'),('state','in',('open','paid'))]
+        domain = [('date_invoice','>=', date_at[:8] + "01"),('date_invoice','<=', date_at),('type','=', 'out_invoice'),('state','in',('open','paid'))]
         invoice_data = self.env['account.invoice'].read_group(domain,fields=['warehouse_id','amount_calculate_cost','amount_total'], groupby=['warehouse_id'])
         for sd in invoice_data:
             sd['Contado'] = sd['Credito'] =0.0

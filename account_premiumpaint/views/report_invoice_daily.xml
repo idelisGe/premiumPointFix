@@ -222,8 +222,12 @@
               </tr>
             </thead>
             <tbody>
+              <t t-set="sum_amount_untaxed" t-value="0"/>
+              <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data)" t-as="sale">
+                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -252,9 +256,9 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
                 <td class="text-right" colspan="2"><strong>Total Contado :</strong></td>
+                <td class="text-right"><span t-esc="sum_amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="sum_amount_tax" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
               </tr>
             </tbody>
@@ -303,8 +307,12 @@
               </tr>
             </thead>
             <tbody>
+              <t t-set="sum_amount_untaxed" t-value="0"/>
+              <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data, 'Credito')" t-as="sale">
+                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -333,9 +341,9 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
                 <td class="text-right" colspan="2"><strong>Total Credito :</strong></td>
+                <td class="text-right"><span t-esc="sum_amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                <td class="text-right"><span t-esc="sum_amount_tax" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
               </tr>
             </tbody>
