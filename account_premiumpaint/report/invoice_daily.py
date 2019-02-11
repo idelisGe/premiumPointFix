@@ -55,11 +55,11 @@ class ReportInvoiceUser(models.AbstractModel):
     _name = 'report.account_premiumpaint.report_invoiceuser'
 
     @api.multi
-    def get_report_user(self, data={}, payment_type='Contado'):
+    def get_report_user(self, data={}, payment_type='Contado', type='out_invoice'):
         start_date = data.get('start_date', False) or fields.Date.context_today(self)
         end_date = data.get('end_date', False) or fields.Date.context_today(self)
         user_id = data.get('user_id', False) and data.get('user_id', False)[0]
-        domain = [('date_invoice','>=', start_date),('date_invoice','<=', end_date),('type','=', 'out_invoice'),('payment_type','=', payment_type),('user_id','=', user_id),('state','in',('open','paid'))]
+        domain = [('date_invoice','>=', start_date),('date_invoice','<=', end_date),('type','=', type),('payment_type','=', payment_type),('user_id','=', user_id),('state','in',('open','paid'))]
         return self.env['account.invoice'].search(domain)
 
     @api.multi
