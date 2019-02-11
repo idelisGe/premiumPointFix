@@ -18,7 +18,7 @@
       </form>
     </field>
   </record>
-  <record id="action_sale_daily_report" model="ir.actions.act_window">
+  <!--record id="action_sale_daily_report" model="ir.actions.act_window">
     <field name="name">Report diario de ventas</field>
     <field name="res_model">sale.daily.report</field>
     <field name="view_type">form</field>
@@ -27,6 +27,6 @@
     <field name="target">new</field>
     <field name="context">{'default_compute_at_date': 0}</field>
   </record>
-  <menuitem id="menu_sale_daily_report" name="Reporte diario de Ventas" parent="sale.menu_sale_report" sequence="100" action="action_sale_daily_report"/>
+  <menuitem id="menu_sale_daily_report" name="Reporte diario de Ventas" parent="sale.menu_sale_report" sequence="100" action="action_sale_daily_report"/-->
 </odoo>
 
