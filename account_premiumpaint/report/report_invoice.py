@@ -69,3 +69,22 @@ class ReportInvoiceUser(models.AbstractModel):
             'data': data.get('form', {}),
             'get_report_user': self.get_report_user
         }
+
+class ReportInvoiceCash(models.AbstractModel):
+
+    _name = 'report.account_premiumpaint.report_invoicecash'
+
+    @api.multi
+    def get_total(self, data={}, payment_type='Contado', type='out_invoice'):
+        date = data.get('date', False) or fields.Date.context_today(self)
+        warehouse_id = data.get('warehouse_id', False) and data.get('warehouse_id', False)[0]
+        domain = [('date_invoice','=', date),('type','=', type),('payment_type','=', payment_type),('warehouse_id','=', warehouse_id),('state','in',('open','paid'))]
+        return sum(self.env['account.invoice'].search(domain).mapped('amount_total'))
+
+    @api.multi
+    def get_report_values(self, docids, data=None):
+        data = dict(data or {})
+        return {
+            'data': data.get('form', {}),
+            'get_total': self.get_total
+        }
