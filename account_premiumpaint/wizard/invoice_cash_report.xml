@@ -24,7 +24,7 @@
     <field name="res_model">invoice.cash.report</field>
     <field name="view_type">form</field>
     <field name="view_mode">form</field>
-    <field name="view_id" ref="view_invoice_daily_report"/>
+    <field name="view_id" ref="view_invoice_cash_report"/>
     <field name="target">new</field>
     <field name="context">{'default_compute_at_date': 0}</field>
   </record>
