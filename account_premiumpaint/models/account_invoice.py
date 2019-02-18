@@ -3,6 +3,20 @@ from base64 import b64decode, b64encode
 from odoo import api, fields, models
 
 
+class account_payment_subtype(models.Model):
+    _name = "account.payment.subtype"
+    _description = "Payment Subtype"
+
+    name = fields.Char(required=True, translate=True)
+    journal_id = fields.Many2one('account.journal', string='Payment Journal', required=True, domain=[('type', 'in', ('bank', 'cash'))])
+
+
+#class account_payment(models.Model):
+#    _inherit = "account.payment"
+
+#    payment_subtype_id = fields.Many2one('account.payment.subtype', string='Payment Subtype')
+
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
