@@ -52,7 +52,7 @@
                 <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
                 <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
-                
+
                 <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
                 <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
                 <tr>
@@ -80,7 +80,7 @@
                 </tr>
               </t>
               <t t-set="all_sale_utilidad" t-value="sum_sales_total - sum_sales_costo"/>
-                <t t-set="all_sale_margen" t-value="(all_sale_utilidad / sum_sales_total) * 100.0 if sum_sales_total else 0.0"/>
+              <t t-set="all_sale_margen" t-value="(all_sale_utilidad / sum_sales_total) * 100.0 if sum_sales_total else 0.0"/>
               <tr>
                 <td><strong>Total :</strong></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
@@ -139,7 +139,7 @@
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
                 <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
                 <t t-set="sum_invoiced_target" t-value="sum_invoiced_target + sale['invoiced_target']"/>
-                
+
                 <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
                 <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
                 <t t-set="this_sale_target_percent" t-value="(sale['amount_total'] / sale['invoiced_target']) * 100.0 if sale['invoiced_target'] else 0.0"/>
@@ -573,59 +573,112 @@
               </tr>
             </thead>
             <tbody>
-              
-                <tr>
-                  <td>
+
+              <tr>
+                <td>
                     VENTAS AL CONTADO
-                  </td>
-                  <td class="text-right">
-                    <t t-set="ventas_contado" t-value="get_total(data, payment_type='Contado', type='out_invoice')"/>
-                    <span t-esc="ventas_contado"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                </td>
+                <td class="text-right">
+                  <t t-set="ventas_contado" t-value="get_total(data, payment_type='Contado', type='out_invoice')"/>
+                  <span t-esc="ventas_contado"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
                     VENTAS AL CREDITO
-                  </td>
-                  <td class="text-right">
-                    <t t-set="ventas_credito" t-value="get_total(data, payment_type='Credito', type='out_invoice')"/>
-                    <span t-esc="ventas_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>VENTAS BRUTAS</strong>
-                  </td>
-                  <td class="text-right">
-                    <span t-esc="ventas_contado + ventas_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                </td>
+                <td class="text-right">
+                  <t t-set="ventas_credito" t-value="get_total(data, payment_type='Credito', type='out_invoice')"/>
+                  <span t-esc="ventas_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>VENTAS BRUTAS</strong>
+                </td>
+                <td class="text-right">
+                  <strong><span t-esc="ventas_contado + ventas_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
                     NOTAS DE CREDITO AL CONTADO
-                  </td>
-                  <td class="text-right">
-                    <t t-set="nc_contado" t-value="get_total(data, payment_type='Contado', type='out_refund')"/>
-                    <span t-esc="nc_contado"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                </td>
+                <td class="text-right">
+                  <t t-set="nc_contado" t-value="get_total(data, payment_type='Contado', type='out_refund')"/>
+                  <span t-esc="nc_contado"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
                     NOTAS DE CREDITO AL CREDITO
-                  </td>
-                  <td class="text-right">
-                    <t t-set="nc_credito" t-value="get_total(data, payment_type='Credito', type='out_refund')"/>
-                    <span t-esc="nc_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
-                  </td>
-                </tr>
+                </td>
+                <td class="text-right">
+                  <t t-set="nc_credito" t-value="get_total(data, payment_type='Credito', type='out_refund')"/>
+                  <span t-esc="nc_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>VENTAS NETAS</strong>
+                </td>
+                <td class="text-right">
+                  <strong><span t-esc="ventas_contado + ventas_credito - nc_contado - nc_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th  class="text-center">
+                  <strong>Tipo de Recibo</strong>
+                </th>
+                <th class="text-right">
+                  <strong>Importe</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-set="sum_payment_amount" t-value="0"/>
+              <t t-foreach="get_payment(data)" t-as="payment">
+                <t t-set="sum_payment_amount" t-value="sum_payment_amount + payment['amount']"/>
                 <tr>
                   <td>
-                    <strong>VENTAS NETAS</strong>
+                    <span t-esc="payment['payment_subtype_id'] and payment['payment_subtype_id'][1] or 'INDEFINIDO'"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="ventas_contado + ventas_credito - nc_contado - nc_credito"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    <span t-esc="payment['amount']"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                 </tr>
+
+              </t>
+              <tr>
+                <td>
+                  <strong>TOTAL DE INGRESOS EN CAJA</strong>
+                </td>
+                <td class="text-right">
+                  <strong><span t-esc="sum_payment_amount"  t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table style="width:100%;">
+            <tbody>
+              <tr>
+                <td style="height: 100px; width:40%;"/>
+                <td style="height: 100px; width:20%;"/>
+                <td style="height: 100px; width:40%;"/>
+              </tr>
+              <tr>
+                <td class="text-center" style="border-top: 1px solid;">
+                  FIRMA CAJERA
+                </td>
+                <td/>
+                <td class="text-center" style="border-top: 1px solid;">
+                  FIRMA CONTABILIDAD
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -633,5 +686,5 @@
     </t>
   </template>
 
-  </odoo>
+</odoo>
 

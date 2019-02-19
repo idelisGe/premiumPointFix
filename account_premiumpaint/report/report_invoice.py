@@ -81,10 +81,21 @@ class ReportInvoiceCash(models.AbstractModel):
         domain = [('date_invoice','=', date),('type','=', type),('payment_type','=', payment_type),('warehouse_id','=', warehouse_id),('state','in',('open','paid'))]
         return sum(self.env['account.invoice'].search(domain).mapped('amount_total'))
 
+    
+    @api.multi
+    def get_payment(self, data={}):
+
+        date = data.get('date', False) or fields.Date.context_today(self)
+        domain = [('payment_date','=', date),('payment_type','=', 'inbound'),('state','in',('posted','reconciled'))]
+        payment_data = self.env['account.payment'].read_group(domain,fields=['payment_subtype_id','amount'], groupby=['payment_subtype_id'])
+        print(payment_data)
+        return payment_data
+
     @api.multi
     def get_report_values(self, docids, data=None):
         data = dict(data or {})
         return {
             'data': data.get('form', {}),
-            'get_total': self.get_total
+            'get_total': self.get_total,
+            'get_payment': self.get_payment
         }

@@ -20,6 +20,7 @@
         'report/report.xml',
         'report/report_invoice.xml',
         'views/account_invoice_view.xml',
+        'views/account_payment_view.xml',
         'wizard/invoice_daily_report.xml',
         'wizard/invoice_user_report.xml',
         'wizard/invoice_cash_report.xml',
