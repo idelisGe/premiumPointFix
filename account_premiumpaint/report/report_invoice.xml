@@ -8,11 +8,11 @@
 
           <div class="row mt32 mb32">
             <div class="col-xs-3">
-              <strong>Fecha Impresion</strong>:<br/>
+              <strong>Fecha Impresión</strong>:<br/>
               <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
             </div>
             <div class="col-xs-3">
-              <strong>Reporte del dia</strong>:<br/>
+              <strong>Reporte del día</strong>:<br/>
               <span t-esc="date_at"/>
             </div>
           </div>
@@ -29,7 +29,7 @@
                   <strong>Contado</strong>
                 </th>
                 <th class="text-right">
-                  <strong>Credito</strong>
+                  <strong>Crédito</strong>
                 </th>
                 <th class="text-right">
                   <strong>Costo</strong>
@@ -108,7 +108,7 @@
                   <strong>Contado</strong>
                 </th>
                 <th class="text-right">
-                  <strong>Credito</strong>
+                  <strong>Crédito</strong>
                 </th>
                 <th class="text-right">
                   <strong>Costo</strong>
@@ -283,7 +283,7 @@
           </table>
         </div>
         <div class="page">
-          <h2 class="text-center">Facturas Credito por vendedor</h2>
+          <h2 class="text-center">Facturas Crédito por vendedor</h2>
           <div class="row mt32 mb32">
             <div class="col-xs-3">
               <strong>Fecha Impresión</strong>:<br/>
@@ -359,7 +359,7 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td class="text-right" colspan="2"><strong>Total Credito :</strong></td>
+                <td class="text-right" colspan="2"><strong>Total Crédito :</strong></td>
                 <td class="text-right"><span t-esc="sum_amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_amount_tax" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
@@ -529,7 +529,7 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td class="text-right" colspan="2"><strong>Total Credito :</strong></td>
+                <td class="text-right" colspan="2"><strong>Total Crédito :</strong></td>
                 <td class="text-right"><span t-esc="sum_amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_amount_tax" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
                 <td class="text-right"><span t-esc="sum_sales_total" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
@@ -545,15 +545,15 @@
     <t t-call="web.html_container">
       <t t-call="web.external_layout">
         <div class="page">
-          <h2 class="text-center">Informa de Caja</h2>
+          <h2 class="text-center">Informe de Caja</h2>
 
           <div class="row mt32 mb32">
             <div class="col-xs-3">
-              <strong>Fecha Impresion</strong>:<br/>
+              <strong>Fecha Impresión</strong>:<br/>
               <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
             </div>
             <div class="col-xs-3">
-              <strong>Reporte del dia</strong>:<br/>
+              <strong>Reporte del día</strong>:<br/>
               <span t-esc="data['date']"/>
             </div>
             <div class="col-xs-3">
@@ -585,7 +585,7 @@
               </tr>
               <tr>
                 <td>
-                    VENTAS AL CREDITO
+                    VENTAS AL CRÉDITO
                 </td>
                 <td class="text-right">
                   <t t-set="ventas_credito" t-value="get_total(data, payment_type='Credito', type='out_invoice')"/>
@@ -602,7 +602,7 @@
               </tr>
               <tr>
                 <td>
-                    NOTAS DE CREDITO AL CONTADO
+                    NOTAS DE CRÉDITO AL CONTADO
                 </td>
                 <td class="text-right">
                   <t t-set="nc_contado" t-value="get_total(data, payment_type='Contado', type='out_refund')"/>
@@ -611,7 +611,7 @@
               </tr>
               <tr>
                 <td>
-                    NOTAS DE CREDITO AL CREDITO
+                    NOTAS DE CRÉDITO AL CRÉDITO
                 </td>
                 <td class="text-right">
                   <t t-set="nc_credito" t-value="get_total(data, payment_type='Credito', type='out_refund')"/>
