@@ -15,6 +15,7 @@ class account_payment(models.Model):
     _inherit = "account.payment"
 
     payment_subtype_id = fields.Many2one('account.payment.subtype', string='Payment Subtype')
+    #Es necesario?
     warehouse_id = fields.Many2one(related='create_uid.sale_team_id.warehouse_id', string="Almacen", store=True, readonly=True)
 
     @api.onchange('payment_subtype_id')
