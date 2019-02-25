@@ -77,8 +77,8 @@ class ReportInvoiceCash(models.AbstractModel):
     @api.multi
     def get_total(self, data={}, payment_type='Contado', type='out_invoice'):
         date = data.get('date', False) or fields.Date.context_today(self)
-        warehouse_id = data.get('warehouse_id', False) and data.get('warehouse_id', False)[0]
-        domain = [('date_invoice','=', date),('type','=', type),('payment_type','=', payment_type),('warehouse_id','=', warehouse_id),('state','in',('open','paid'))]
+        user_id = data.get('user_id', False) and data.get('user_id', False)[0]
+        domain = [('date_invoice','=', date),('type','=', type),('payment_type','=', payment_type),('create_uid','=', user_id),('state','in',('open','paid'))]
         return sum(self.env['account.invoice'].search(domain).mapped('amount_total'))
 
     
@@ -86,9 +86,9 @@ class ReportInvoiceCash(models.AbstractModel):
     def get_payment(self, data={}):
 
         date = data.get('date', False) or fields.Date.context_today(self)
-        domain = [('payment_date','=', date),('payment_type','=', 'inbound'),('state','in',('posted','reconciled'))]
+        user_id = data.get('user_id', False) and data.get('user_id', False)[0]
+        domain = [('create_uid','=', user_id),('payment_date','=', date),('payment_type','=', 'inbound'),('state','in',('posted','reconciled'))]
         payment_data = self.env['account.payment'].read_group(domain,fields=['payment_subtype_id','amount'], groupby=['payment_subtype_id'])
-        print(payment_data)
         return payment_data
 
     @api.multi

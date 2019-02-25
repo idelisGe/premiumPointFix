@@ -244,8 +244,8 @@
               <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data)" t-as="sale">
-                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
-                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
+                <t t-set="sum_amount_untaxed" t-value="sum_amount_untaxed + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_amount_tax + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -329,8 +329,8 @@
               <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data, 'Credito')" t-as="sale">
-                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
-                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
+                <t t-set="sum_amount_untaxed" t-value="sum_amount_untaxed + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_amount_tax + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -414,8 +414,8 @@
               <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data, type='out_refund')" t-as="sale">
-                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
-                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
+                <t t-set="sum_amount_untaxed" t-value="sum_amount_untaxed + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_amount_tax + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -499,8 +499,8 @@
               <t t-set="sum_amount_tax" t-value="0"/>
               <t t-set="sum_sales_total" t-value="0"/>
               <t t-foreach="get_report_user(data, payment_type='Credito', type='out_refund')" t-as="sale">
-                <t t-set="sum_amount_untaxed" t-value="sum_sales_total + sale.amount_untaxed"/>
-                <t t-set="sum_amount_tax" t-value="sum_sales_total + sale.amount_tax"/>
+                <t t-set="sum_amount_untaxed" t-value="sum_amount_untaxed + sale.amount_untaxed"/>
+                <t t-set="sum_amount_tax" t-value="sum_amount_tax + sale.amount_tax"/>
                 <t t-set="sum_sales_total" t-value="sum_sales_total + sale.amount_total"/>
                 <tr>
                   <td>
@@ -557,8 +557,7 @@
               <span t-esc="data['date']"/>
             </div>
             <div class="col-xs-3">
-              <strong>Sucursal</strong>:<br/>
-              <t t-esc="data['warehouse_id'][1]"/>
+              <t t-esc="data['user_id'][1]"/>
             </div>
           </div>
           <table class="table table-condensed">
