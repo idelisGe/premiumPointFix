@@ -28,6 +28,6 @@
     <field name="context">{'default_compute_at_date': 0}</field>
   </record>
 
-  <menuitem id="menu_invoice_daily_report" name="Reporte diario de Facturas" parent="account_premiumpaint_pdf_report_menu" sequence="100" action="action_invoice_daily_report"/>
+  <menuitem id="menu_invoice_daily_report" name="Reporte diario de Facturas" parent="account_reports_premiumpaint_menu" sequence="100" action="action_invoice_daily_report"/>
 </odoo>
 

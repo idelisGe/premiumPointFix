@@ -9,6 +9,13 @@
     groups="account.group_account_invoice"/>
 
   <menuitem
+    id="account_reports_premiumpaint_menu"
+    name="Premiumpaint"
+    parent="account.menu_finance_reports"
+    sequence="100"
+    groups="account.group_account_user"/>
+
+  <menuitem
     id="account_premiumpaint_pdf_report_menu"
     name="Reportes PDF"
     parent="account_premiumpaint_menu"
