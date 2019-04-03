@@ -48,19 +48,19 @@
               <t t-set="sum_sales_credito" t-value="0"/>
               <t t-set="sum_sales_costo" t-value="0"/>
               <t t-foreach="data" t-as="sale">
-                <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_total']"/>
+                <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_untaxed']"/>
                 <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
                 <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
 
-                <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
-                <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
+                <t t-set="this_sale_utilidad" t-value="sale['amount_untaxed'] - sale['amount_calculate_cost']"/>
+                <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_untaxed']) * 100.0 if sale['amount_untaxed'] else 0.0"/>
                 <tr>
                   <td>
                     <span t-esc="sale['warehouse_id'][1]"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="sale['amount_total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    <span t-esc="sale['amount_untaxed']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
                     <span t-esc="sale['Contado']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
@@ -134,21 +134,21 @@
               <t t-set="sum_sales_costo" t-value="0"/>
               <t t-set="sum_invoiced_target" t-value="0"/>
               <t t-foreach="get_report_consolidate(date_at)" t-as="sale">
-                <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_total']"/>
+                <t t-set="sum_sales_total" t-value="sum_sales_total + sale['amount_untaxed']"/>
                 <t t-set="sum_sales_contado" t-value="sum_sales_contado + sale['Contado']"/>
                 <t t-set="sum_sales_credito" t-value="sum_sales_credito + sale['Credito']"/>
                 <t t-set="sum_sales_costo" t-value="sum_sales_costo + sale['amount_calculate_cost']"/>
                 <t t-set="sum_invoiced_target" t-value="sum_invoiced_target + sale['invoiced_target']"/>
 
-                <t t-set="this_sale_utilidad" t-value="sale['amount_total'] - sale['amount_calculate_cost']"/>
-                <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_total']) * 100.0 if sale['amount_total'] else 0.0"/>
-                <t t-set="this_sale_target_percent" t-value="(sale['amount_total'] / sale['invoiced_target']) * 100.0 if sale['invoiced_target'] else 0.0"/>
+                <t t-set="this_sale_utilidad" t-value="sale['amount_untaxed'] - sale['amount_calculate_cost']"/>
+                <t t-set="this_sale_margen" t-value="(this_sale_utilidad / sale['amount_untaxed']) * 100.0 if sale['amount_untaxed'] else 0.0"/>
+                <t t-set="this_sale_target_percent" t-value="(sale['amount_untaxed'] / sale['invoiced_target']) * 100.0 if sale['invoiced_target'] else 0.0"/>
                 <tr>
                   <td>
                     <span t-esc="sale['warehouse_id'][1]"/>
                   </td>
                   <td class="text-right">
-                    <span t-esc="sale['amount_total']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                    <span t-esc="sale['amount_untaxed']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                   </td>
                   <td class="text-right">
                     <span t-esc="sale['Contado']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
