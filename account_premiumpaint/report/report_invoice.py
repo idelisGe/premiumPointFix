@@ -29,10 +29,17 @@ class ReportInvoiceDaily(models.AbstractModel):
                     groupby=['payment_type'])
                 for spt in sale_payment_type:
                     sd[spt['payment_type']] = spt['amount_untaxed']
-            sale_team = self.env['crm.team'].search([
-                ('warehouse_id','=',sd['warehouse_id'][0])],
-                                                    limit=1)
-            sd['invoiced_target'] = sale_team.invoiced_target if sale_team else 0.0
+            CrmTeam = self.env['crm.team']
+            warehouse_id = sd.get('warehouse_id', [2]) #try invoice warehouse
+            invoice_crm_team = CrmTeam.search([
+                ('warehouse_id','=', warehouse_id[0])], limit=1)
+            if not invoice_crm_team:
+                # Extreme case when exist an invoice related with a warehouse
+                # and doesn't exist a crm_team related with the invoice
+                # warehouse.
+                #This is the default crm, using 'Costa del Este' warehouse id(2)
+                invoice_crm_team = CrmTeam.search([('warehouse_id','=', 2)])
+            sd['invoiced_target'] = invoice_crm_team.invoiced_target or 0.0
         return invoice_data
 
     @api.multi
