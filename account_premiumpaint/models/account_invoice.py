@@ -17,6 +17,10 @@ class AccountInvoice(models.Model):
                 invoice.payment_type = sale_order.payment_type if sale_order else False
                 invoice.warehouse_id = sale_order.warehouse_id if sale_order else False
                 invoice.amount_calculate_cost = sale_order.amount_calculate_cost if sale_order else 0.0
+            else:
+                # Set 'Costa del Este' like default warehouse.
+                StockWarehouse = self.env['stock.warehouse']
+                invoice.warehouse_id = StockWarehouse.browse([2]).id
             if not payment_type:
                 invoice_pt_id = invoice.payment_term_id.id if invoice.payment_term_id else False
                 immediate_pt = self.env.ref('account.account_payment_term_immediate')
