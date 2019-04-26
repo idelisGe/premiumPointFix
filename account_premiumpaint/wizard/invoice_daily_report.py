@@ -12,7 +12,8 @@ class InvoiceDailyReport(models.TransientModel):
         (0, 'Al dia'),
         (1, 'A una Fecha')
     ], string="Reporte", help="Reporte de hoy o de una determinada fecha")
-    date = fields.Date('Fecha de reporte', help="Fecha para el reporte de ventas", default=fields.Date.context_today)
+    date = fields.Date('Fecha de reporte', help="Fecha para el reporte de ventas",
+                       default=fields.Date.context_today)
 
     def open_report(self):
         data = {}

@@ -13,15 +13,25 @@ class ReportInvoiceDaily(models.AbstractModel):
 
         if not date_at:
             date_at = fields.Date.context_today(self)
-        domain = [('date_invoice','>=', date_at[:8] + "01"),('date_invoice','<=', date_at),('type','=', 'out_invoice'),('state','in',('open','paid'))]
-        invoice_data = self.env['account.invoice'].read_group(domain,fields=['warehouse_id','amount_calculate_cost','amount_untaxed'], groupby=['warehouse_id'])
+        domain = [('date_invoice','>=', date_at[:8] + "01"),
+                  ('date_invoice','<=', date_at),
+                  ('type','=', 'out_invoice'),
+                  ('state','in',('open','paid'))]
+        invoice_data = self.env['account.invoice'].read_group(
+            domain,fields=['warehouse_id','amount_calculate_cost','amount_untaxed'],
+            groupby=['warehouse_id'])
         for sd in invoice_data:
             sd['Contado'] = sd['Credito'] =0.0
             if '__domain' in sd:
-                sale_payment_type = self.env['account.invoice'].read_group(sd['__domain'],fields=['payment_type','amount_untaxed'], groupby=['payment_type'])
+                sale_payment_type = self.env['account.invoice'].read_group(
+                    sd['__domain'],
+                    fields=['payment_type','amount_untaxed'],
+                    groupby=['payment_type'])
                 for spt in sale_payment_type:
                     sd[spt['payment_type']] = spt['amount_untaxed']
-            sale_team = self.env['crm.team'].search([('warehouse_id','=',sd['warehouse_id'][0])], limit=1)
+            sale_team = self.env['crm.team'].search([
+                ('warehouse_id','=',sd['warehouse_id'][0])],
+                                                    limit=1)
             sd['invoiced_target'] = sale_team.invoiced_target if sale_team else 0.0
         return invoice_data
 
@@ -32,7 +42,11 @@ class ReportInvoiceDaily(models.AbstractModel):
         
         if not wiz_date:
             wiz_date = fields.Date.context_today(self)
-        domain = [('date_invoice','>=', wiz_date),('date_invoice','<=', wiz_date),('type','=', 'out_invoice'),('state','in',('open','paid'))]
+        domain = [('date_invoice','>=', wiz_date),
+                  ('date_invoice','<=', wiz_date),
+                  ('type','=', 'out_invoice'),
+                  ('state','in',
+                   ('open','paid'))]
         docs = self.env['account.invoice'].browse(docids)
         invoice_data = self.env['account.invoice'].read_group(domain,fields=['warehouse_id','amount_calculate_cost','amount_untaxed'], groupby=['warehouse_id'])
         for sd in invoice_data:
